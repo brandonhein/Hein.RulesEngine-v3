@@ -2,6 +2,6 @@
 
 module.exports = {
     fetch: function(ruleSetName) {
-        return "some code from dynamodb table";
+        return "values[\"EventId\"] += values[\"StatusId\"]";
     }
 }

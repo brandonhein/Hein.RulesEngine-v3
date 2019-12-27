@@ -9,8 +9,11 @@ module.exports = {
         vm.createContext(request);
 
         vm.runInContext(dynamicCode, request);
-        console.log(JSON.stringify(request));
 
-        return request;
+        var response = {
+            rule: request.rule,
+            values: request.values
+        }
+        return response;
     }
 }

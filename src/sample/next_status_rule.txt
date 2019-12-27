@@ -1,0 +1,16 @@
+var beginingStatus = values["StatusId"];
+
+if (values["IsCallEvent"] == true)
+{
+    if (values["StatusId"] == 8005 | values["StatusId"] == 8010)
+    {
+        if (values["CallDuration"]  >= 127)
+            values["StatusId"]  = 8015;
+        else if (values["StatusId"] == 8005)
+            values["StatusId"] = 8010;
+        else
+            values["StatusId"]  = values["StatusId"];
+    }
+}
+
+values["IsStatusChanging"] = beginingStatus != values["StatusId"];

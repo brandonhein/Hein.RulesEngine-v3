@@ -1,0 +1,7 @@
+var result = false;
+
+if (values["YoungestClientAge"] >= 61.5)
+    if (values["State"] != "RI" & values["State"] != "VT" & values["State"] != "WV")
+        result = true;
+
+values["IsEligible"] = result;

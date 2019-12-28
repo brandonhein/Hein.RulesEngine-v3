@@ -29,9 +29,9 @@
               }
           }
       },
-      "/Validate": {
+      "/Convert": {
           "post": {
-              "tags": ["Validation"],
+              "tags": ["Convert"],
               "operationId": "Index",
               "consumes": ["text/plain"],
               "produces": ["text/plain"],

@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 var express = require("express");
 var middleware = require("./middleware");
 var executor = require("./rule-executor");
+var service = require("./services/code-conversion-service");
 
 
 var app = express();
@@ -33,12 +34,14 @@ app.route("/execute")
         res.end(JSON.stringify(result));
     });
 
-app.route("/validate")
+app.route("/convert")
     .post(function(req, res) {
-        var stringResult = req.body.toString();
-
-        res.setHeader("Content-Type", "text/plain");
-        res.end(stringResult);
+        var bodyText = req.body.toString();
+        service.adminCodeToJavascript(bodyText)
+        .then((result) => {
+            res.setHeader("Content-Type", "text/plain");
+            res.end(result);
+        });
     });
 
 app.use(function (err, req, res, next){

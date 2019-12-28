@@ -1,0 +1,18 @@
+# serverless.yml
+
+service: Hein.RulesEngine-v3
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-east-2
+
+functions:
+  app:
+    handler: src/handler.js
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+
+plugins:
+  - serverless-offline

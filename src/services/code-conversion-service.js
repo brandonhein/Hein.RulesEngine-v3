@@ -23,6 +23,11 @@ module.exports = {
      * https://github.com/brandonhein/Hein.RulesEngine-v2/blob/master/src/RulesEngine.Domain/Magic/AdminToEngineCodeConversion.cs#L46
      */
     adminCodeToJavascript: function(adminCode) {
+        var temps = adminCode.match(/temp /g);
+        if (temps) {
+            adminCode = adminCode.replace("temp ", "Dim ");
+        }
+
         var matches = adminCode.match(/\[(.*?)\]/g);
         var specialGroups = [];
 

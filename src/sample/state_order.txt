@@ -1,0 +1,11 @@
+    if (values["State"] == "MI")
+    {
+        values["Name"] = "Michigan";
+        values["Order"] = 1;
+    }
+    else if (values["State"] == "OH"
+    )
+    {
+        values["Name"] = "Ohio";
+        values["Order"] = 50;
+    }

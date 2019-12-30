@@ -1,0 +1,33 @@
+    // default consequences to empty array
+    values["Consequences"] = [];
+
+    if (values["ProductId"] == "88" | values["ProductId"] == "88")
+    {
+        if (values["PropertyValue"] < 250000.00)
+            values["Consequences"].push("Rule failure: Property value below $250,000.");
+        if (values["CreditScore"] < 640)
+            values["Consequences"].push("Rule failure: Credit score below 640.");
+        if (values["LoanPurpose"] == "Purchase" | values["IsPurchase"] == true)
+            values["Consequences"].push("Rule failure: Purchase loans are not eligible for this product.");
+        if (values["State"] == "NY" | values["State"] == "WI")
+            values["Consequences"].push("Rule failure: This product is not eligible for this property state.");
+    }
+
+
+//'default consequences to empty array
+//[Consequences] = []
+//
+//IF [ProductId] = "1572" OR [ProductId] = "1658"
+//   IF [PropertyValue] < 250000.00
+//      [Consequences].Add("Rule failure: Property value below $250,000.")
+//   ENDIF
+//   IF [CreditScore] < 640
+//      [Consequences].Add("Rule failure: Credit score below 640.")
+//   ENDIF
+//   IF [LoanPurpose] = "Purchase" OR [IsPurchase] = true
+//      [Consequences].Add("Rule failure: Purchase loans are not eligible for this product.")
+//   ENDIF
+//   IF [State] = "NY" OR [State] = "WI"
+//      [Consequences].Add("Rule failure: This product is not eligible for this property state.")
+//   ENDIF
+//ENDIF

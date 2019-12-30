@@ -49,6 +49,25 @@ module.exports = {
                         resultCode = resultCode.replace('_e___', '\"]');
                     }
 
+                    var emptyValues = resultCode.match(/values\[\"\"\]/g);
+                    if (emptyValues) {
+                        for (var i = 0; i < emptyValues.length; i++){
+                            resultCode = resultCode.replace('values[\"\"]', '[]');
+                        }
+                    }
+
+                    var atNulls = resultCode.match(/\@null/g);
+                    if (atNulls) {
+                        for (var i = 0; i < emptyValues.length; i++){
+                            resultCode = resultCode.replace("@null", "null");
+                        }
+                    }
+
+                    var allPushMatches = resultCode.match(/].Add/g);
+                    for (var i = 0; i < allPushMatches.length; i++) {
+                        resultCode = resultCode.replace("].Add", "].push");
+                    }
+
                     return resultCode;
                 }
                 else {
@@ -57,6 +76,7 @@ module.exports = {
             })
             .catch((error) =>
             {
+                console.log(error);
                 return "error converting admin code to engine code";
             });
 

@@ -6,6 +6,7 @@ var express = require("express");
 var middleware = require("./middleware");
 var executor = require("./rule-executor");
 var service = require("./services/code-conversion-service");
+var viewEngine = require("./views/view-engine");
 
 
 var app = express();
@@ -20,14 +21,19 @@ app.use(function (req, res, next) {
 
 app.route("/")
     .get(function (req, res) {
-        res.redirect("/swagger.html");
+        var view = viewEngine.display("home");
+        res.setHeader("Content-Type", "text/html");
+        res.end(view);
     });
 
 app.route("/swagger")
     .get(function (req, res) {
-        res.redirect("/swagger.html");
+        var view = viewEngine.display("swagger");
+        res.setHeader("Content-Type", "text/html");
+        res.end(view);
     });
 
+/********************** api endpoints **********************/
 app.route("/execute")
     .post(function(req, res){
         executor.applyAsync(req.body)
@@ -53,7 +59,7 @@ app.use(function (err, req, res, next){
 //run in lambda or run locally :)
 if (process.env.NODE_ENV) {
     //Lambda - HTTP API
-    module.exports.handler = serverless(app);
+    module.exports.proxy = serverless(app);
 }
 else {
     app.listen(5000, function(req, res){

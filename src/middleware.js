@@ -1,5 +1,4 @@
 'use strict'
-var Stopwatch = require("node-stopwatch").Stopwatch;
 
 module.exports = {
     setup: function (req, res, next) {
@@ -9,8 +8,8 @@ module.exports = {
             }
             res.setHeader("Access-Control-Allow-Origin", "*");
             res.setHeader("Content-Type", "application/json");
-            res.setHeader("x-engine", "hein.rulesengine");
-
+            res.setHeader("x-engine-by", "brandonhein");
+            res.setHeader("sonic-or-flash", "sonic");
 
             var request = {
                 method: req.method,
@@ -21,19 +20,21 @@ module.exports = {
             }
             console.log(JSON.stringify(request));
 
-            var stopwatch = Stopwatch.create();
-            stopwatch.start();
+            const startHrTime = process.hrtime();
+            res.on("finish", () => {
+                const elapsedHrTime = process.hrtime(startHrTime);
+                const elapsedTimeInMs = (elapsedHrTime[0] * 1000 + elapsedHrTime[1] / 1e6) + 1;
+
+                var response = {
+                    status: res.statusMessage,
+                    statusCode: res.statusCode,
+                    responseTime: elapsedTimeInMs + "ms"
+                }
+                console.log(JSON.stringify(response));
+              });
 
             next();
 
-            stopwatch.stop();
-
-            var response = {
-                status: res.statusMessage,
-                statusCode: res.statusCode,
-                responseTime: stopwatch.elapsedMilliseconds + "ms"
-            }
-            console.log(JSON.stringify(response));
 
         } catch (error) {
             next(error);

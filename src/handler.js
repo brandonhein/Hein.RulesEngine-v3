@@ -3,6 +3,7 @@
 var serverless = require("serverless-http");
 var bodyParser = require("body-parser");
 var express = require("express");
+var responseTime = require('response-time')
 var middleware = require("./middleware");
 var executor = require("./rule-executor");
 var service = require("./services/code-conversion-service");
@@ -10,6 +11,7 @@ var viewEngine = require("./views/view-engine");
 
 
 var app = express();
+app.use(responseTime());
 app.use(bodyParser.text());
 app.use(bodyParser.json());
 
@@ -23,14 +25,14 @@ app.route("/")
     .get(function (req, res) {
         var view = viewEngine.display("home");
         res.setHeader("Content-Type", "text/html");
-        res.end(view);
+        res.send(view);
     });
 
 app.route("/swagger")
     .get(function (req, res) {
         var view = viewEngine.display("swagger");
         res.setHeader("Content-Type", "text/html");
-        res.end(view);
+        res.send(view);
     });
 
 /********************** api endpoints **********************/
@@ -38,7 +40,7 @@ app.route("/execute")
     .post(function(req, res){
         executor.applyAsync(req.body)
             .then((result) => {
-                res.end(JSON.stringify(result));
+                res.send(JSON.stringify(result));
             });
     });
 
@@ -48,7 +50,7 @@ app.route("/convert")
         service.adminCodeToJavascript(bodyText)
             .then((result) => {
                 res.setHeader("Content-Type", "text/plain");
-                res.end(result);
+                res.send(result);
             });
     });
 

@@ -1,11 +1,30 @@
-    if (values["State"] == "MI")
+    if (values["State"] == "DE")
     {
-        values["Name"] = "Michigan";
+        values["Name"] = "Delaware";
         values["Order"] = 1;
+        values["Date"] = "December 7, 1787";
     }
-    else if (values["State"] == "OH"
-    )
+    else if (values["State"] == "PA")
     {
-        values["Name"] = "Ohio";
-        values["Order"] = 50;
+        values["Name"] = "Pennsylvania";
+        values["Order"] = 2;
+        values["Date"] = "December 12, 1787";
+    }
+    else if (values["State"] == "NJ")
+    {
+        values["Name"] = "New Jersey";
+        values["Order"] = 3;
+        values["Date"] = "December 18, 1787";
+    }
+    else if (values["State"] == "GA")
+    {
+        values["Name"] = "Georgia";
+        values["Order"] = 4;
+        values["Date"] = "January 2, 1788";
+    }
+    else if (values["State"] == "CT")
+    {
+        values["Name"] = "Connecticut";
+        values["Order"] = 5;
+        values["Date"] = "January 9, 1788";
     }

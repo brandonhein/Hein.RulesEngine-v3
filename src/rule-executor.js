@@ -3,9 +3,9 @@ var codeFetcher = require("./rule-fetcher");
 var vm = require("vm");
 
 module.exports = {
-    apply: function(request) {
+    applyAsync: async function(request) {
         
-        var dynamicCode = codeFetcher.fetch(request.rule);
+        var dynamicCode = await codeFetcher.fetchAsync(request.rule);
         vm.createContext(request);
 
         vm.runInContext(dynamicCode, request);

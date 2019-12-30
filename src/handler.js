@@ -30,18 +30,20 @@ app.route("/swagger")
 
 app.route("/execute")
     .post(function(req, res){
-        var result = executor.apply(req.body);
-        res.end(JSON.stringify(result));
+        executor.applyAsync(req.body)
+            .then((result) => {
+                res.end(JSON.stringify(result));
+            });
     });
 
 app.route("/convert")
     .post(function(req, res) {
         var bodyText = req.body.toString();
         service.adminCodeToJavascript(bodyText)
-        .then((result) => {
-            res.setHeader("Content-Type", "text/plain");
-            res.end(result);
-        });
+            .then((result) => {
+                res.setHeader("Content-Type", "text/plain");
+                res.end(result);
+            });
     });
 
 app.use(function (err, req, res, next){

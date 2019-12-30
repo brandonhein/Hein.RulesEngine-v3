@@ -1,7 +1,7 @@
     // default consequences to empty array
     values["Consequences"] = [];
 
-    if (values["ProductId"] == "88" | values["ProductId"] == "88")
+    if (values["ProductId"] == "88" | values["ProductId"] == "89")
     {
         if (values["PropertyValue"] < 250000.00)
             values["Consequences"].push("Rule failure: Property value below $250,000.");
@@ -17,7 +17,7 @@
 //'default consequences to empty array
 //[Consequences] = []
 //
-//IF [ProductId] = "1572" OR [ProductId] = "1658"
+//IF [ProductId] = "88" OR [ProductId] = "89"
 //   IF [PropertyValue] < 250000.00
 //      [Consequences].Add("Rule failure: Property value below $250,000.")
 //   ENDIF

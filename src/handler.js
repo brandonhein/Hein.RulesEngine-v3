@@ -56,5 +56,7 @@ if (process.env.NODE_ENV) {
     module.exports.handler = serverless(app);
 }
 else {
-    require("./local/debug").start(app);
+    app.listen(5000, function(req, res){
+        console.log("Hein.RulesEngine-v3 is running on port: 5000");
+    });
 }

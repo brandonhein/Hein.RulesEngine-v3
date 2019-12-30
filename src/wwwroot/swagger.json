@@ -63,8 +63,16 @@
               },
               "values": {
                   "type": "object",
-                  "additionalProperties": {
-                      "type": "object"
+                  "properties": {
+                      "additionalProp1": {
+                          "type": "string"
+                      },
+                      "additionalProp2": {
+                          "type": "number"
+                      },
+                      "additionalProp3": {
+                          "type": "boolean"
+                      }
                   }
               }
           }

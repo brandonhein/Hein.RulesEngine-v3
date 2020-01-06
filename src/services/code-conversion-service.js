@@ -69,8 +69,10 @@ module.exports = {
                     }
 
                     var allPushMatches = resultCode.match(/].Add/g);
-                    for (var i = 0; i < allPushMatches.length; i++) {
-                        resultCode = resultCode.replace("].Add", "].push");
+                    if (allPushMatches) {
+                        for (var i = 0; i < allPushMatches.length; i++) {
+                            resultCode = resultCode.replace("].Add", "].push");
+                        }
                     }
 
                     return resultCode;

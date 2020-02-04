@@ -8,6 +8,7 @@ var middleware = require("./middleware");
 var executor = require("./rule-executor");
 var service = require("./services/code-conversion-service");
 var viewEngine = require("./views/view-engine");
+var repository = require("./repository/rule-repository");
 
 
 var app = express();
@@ -22,6 +23,20 @@ app.use(function (req, res, next) {
 });
 
 app.route("/")
+    .get(function (req, res) {
+        var view = viewEngine.display("home");
+        res.setHeader("Content-Type", "text/html");
+        res.send(view);
+    });
+
+app.route("/home")
+    .get(function (req, res) {
+        var view = viewEngine.display("home");
+        res.setHeader("Content-Type", "text/html");
+        res.send(view);
+    });
+
+app.route("/index")
     .get(function (req, res) {
         var view = viewEngine.display("home");
         res.setHeader("Content-Type", "text/html");
@@ -51,6 +66,15 @@ app.route("/convert")
             .then((result) => {
                 res.setHeader("Content-Type", "text/plain");
                 res.send(result);
+            });
+    });
+
+app.route('/save')
+    .post(function (req, res) {
+        repository.saveAsync(req.body)
+            .then((result) => {
+                res.setHeader("Content-Type", "text/plain");
+                res.send("OK");
             });
     });
 

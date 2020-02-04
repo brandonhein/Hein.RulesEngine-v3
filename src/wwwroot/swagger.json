@@ -3,11 +3,12 @@
   "info": {
       "title": "Hein.RulesEngine.API"
   },
-  "basePath": "/",
+  "basePath": "/Prod",
   "paths": {
       "/Execute": {
           "post": {
               "tags": ["Execute"],
+              "summary": "Execute a rule set",
               "operationId": "Index",
               "consumes": ["application/json"],
               "produces": ["application/json"],
@@ -32,6 +33,7 @@
       "/Convert": {
           "post": {
               "tags": ["Convert"],
+              "summary": "Convert Admin Code to Rules Engine Code",
               "operationId": "Index",
               "consumes": ["text/plain"],
               "produces": ["text/plain"],

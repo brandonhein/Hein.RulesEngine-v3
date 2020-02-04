@@ -9,7 +9,8 @@ module.exports = {
             res.setHeader("Access-Control-Allow-Origin", "*");
             res.setHeader("Content-Type", "application/json");
             res.setHeader("x-engine-by", "brandonhein");
-            res.setHeader("sonic-or-flash", "sonic");
+            var result = Math.floor(Math.random() * Math.floor(2));
+            res.setHeader("sonic-or-flash", result == 1 ? "sonic" : "flash");
 
             var request = {
                 method: req.method,

@@ -11,20 +11,17 @@ module.exports = {
         body += "</tr></thead><tbody>"
         
         var items = [];
-        items.push({
-            name: "next_status_rule",
-            updatedBy: "bhein",
-            updated: Date.now()
-        });
-        items.push({
-            name: "is_event_id_a_status",
-            updatedBy: "bhein",
-            updated: Date.now()
-        });
+        for (var i = 0; i < model.length; i++) {
+            items.push({
+                name: model[i],
+                updatedBy: "bhein",
+                updated: new Date(Date.now()).toLocaleString()
+            });
+        }
 
         for (var i = 0;  i < items.length; i++) {
             body += "<tr>"
-            body += "<td><button class='btn btn-sm btn-primary'>View</button></td>";
+            body += "<td><a href='/Prod/playground/" + items[i].name + "'><button class='btn btn-sm btn-primary'>View</button></a></td>";
             body += "<td>" + items[i].name + "</td>";
             body += "<td>" + items[i].updatedBy + "</td>";
             body += "<td>" + items[i].updated + "</td>";

@@ -35,9 +35,12 @@ app.route("/home")
 
 app.route("/index")
     .all(function (req, res) {
-        var view = viewEngine.display("home");
-        res.setHeader("Content-Type", "text/html");
-        res.send(view);
+        repository.getRuleSetNamesAsync()
+            .then((results) => {
+                var view = viewEngine.display("home", results);
+                res.setHeader("Content-Type", "text/html");
+                res.send(view);
+            });
     });
 
 app.route("/swagger")
@@ -45,6 +48,20 @@ app.route("/swagger")
         var view = viewEngine.display("swagger");
         res.setHeader("Content-Type", "text/html");
         res.send(view);
+    });
+
+app.route("/playground")
+    .get(function (req, res) {
+
+    });
+
+app.route("/playground/:ruleName")
+    .get(function (req, res) {
+        repository.getRuleAsync(req.params.ruleName)
+            .then((result) => {
+
+                res.send(JSON.stringify(result));
+            });
     });
 
 /********************** api endpoints **********************/

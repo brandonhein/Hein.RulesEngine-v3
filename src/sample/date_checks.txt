@@ -1,6 +1,3 @@
-/** Awesome constant params we levarage **/
-var now = new Date(Date.now()).toISOString();
-var today = now.slice(0,10);
 
     values["Now"] = now;
     values["Today"] = today;

@@ -14,6 +14,13 @@ module.exports = {
         }
 
         var dynamicCode = await codeFetcher.fetchAsync(request.rule);
+
+        var declarables = "/** Awesome constant params we levarage **/\n" +
+            "var now = new Date(Date.now()).toISOString();\n" +
+            "var today = now.slice(0,10);\n";
+
+        dynamicCode = declarables + dynamicCode;
+
         vm.createContext(request);
 
         vm.runInContext(dynamicCode, request);

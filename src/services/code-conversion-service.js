@@ -79,14 +79,6 @@ module.exports = {
                     resultCode = result.convertedCode.substring(1);
                     resultCode = resultCode.slice(0, -3);
 
-                    //TODO add extension prototypes
-
-                    var declarables = "/** Awesome constant params we levarage **/\n" +
-                        "var now = new Date(Date.now()).toISOString();\n" +
-                        "var today = now.slice(0,10);\n";
-
-                    resultCode = declarables + resultCode;
-
                     var fMatches = resultCode.match(/___f_/g);
                     var eMatches = resultCode.match(/_e___/g);
 

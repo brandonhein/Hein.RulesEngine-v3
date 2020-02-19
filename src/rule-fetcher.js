@@ -1,8 +1,12 @@
 'use strict'
 
-var fs = require("fs");
-var repository = require("./repository/rule-repository");
-//var bucketReader = require("./services/s3-bucket-file-grabber");
+let repository;
+if (process.env.NODE_ENV) {
+    repository = require("./repository/rule-repository");
+}
+else {
+    repository = require("./repository/debug-rule-repository");
+}
 
 module.exports = {
     fetchAsync: async function(ruleSetName) {

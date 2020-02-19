@@ -9,7 +9,7 @@ Link of working Demo here => https://3lihn11xl3.execute-api.us-east-2.amazonaws.
 
 ## What makes it special
 ### Rule Creation/Updates
-Admin's (use an admin too) create rules using some basic IF/ELSE IF/ELSE conditions in a `Visual Basic` fashion.
+Admin's (use an admin tool [for demo purposes the ui is added to this repo]) create rules using some basic IF/ELSE IF/ELSE conditions in a `Visual Basic` fashion.
 ```visualbasic
 IF [EventId] = 8000
    [IsStatus] = true

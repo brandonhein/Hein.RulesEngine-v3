@@ -90,7 +90,7 @@
                     "in": "body",
                     "required": false,
                     "schema": {
-                        "type": "string"
+                        "$ref": "#/definitions/RuleEntityModel"
                     }
                 }],
                 "responses": {

@@ -93,18 +93,21 @@ app.route('/rule')
     .get(function (req, res) {
         repository.getRuleSetNamesAsync()
             .then((results) => {
-                var haleoas = [];
+                var responses = [];
                 for (var i = 0; i < results.length; i++) {
                     var links = [];
-                    links.push({ href: "/Prod/rule/" + results[i], rel: "rule", type: "GET"});
+                    links.push({ href: "/Prod/rule/" + results[i], rel: "api", type: "GET"});
+                    links.push({ href: "/Prod/playground/" + results[i], rel: "ui", type: "GET"});
 
-                    haleoas.push({
+                    responses.push({
                         ruleName: results[i],
+                        lastUpdatedBy: "bhein",
+                        lastUpdateDate: new Date(Date.now()).toISOString(),
                         _links: links
                     });
                 }
 
-                res.send(JSON.stringify(haleoas));
+                res.send(JSON.stringify(responses));
             });
     })
     .post(function (req, res) {

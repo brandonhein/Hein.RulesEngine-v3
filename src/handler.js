@@ -18,26 +18,23 @@ app.use(bodyParser.json());
 
 app.use(express.static(`${__dirname}/wwwroot`));
 
-app.use(function (req, res, next) {
-    middleware.setup(req, res, next);
-});
-
+//route the /Prod url to index
 app.route("/")
-    .get(function (req, res) {
-        var view = viewEngine.display("home");
-        res.setHeader("Content-Type", "text/html");
-        res.send(view);
+    .all(function (req, res) {
+        res.redirect('/Prod/index');
     });
 
+app.use(function (req, res, next) {
+   middleware.setup(req, res, next);
+});
+
 app.route("/home")
-    .get(function (req, res) {
-        var view = viewEngine.display("home");
-        res.setHeader("Content-Type", "text/html");
-        res.send(view);
+    .all(function (req, res) {
+        res.redirect('/Prod/index');
     });
 
 app.route("/index")
-    .get(function (req, res) {
+    .all(function (req, res) {
         var view = viewEngine.display("home");
         res.setHeader("Content-Type", "text/html");
         res.send(view);
@@ -69,12 +66,37 @@ app.route("/convert")
             });
     });
 
-app.route('/save')
+app.route('/rule')
+    .get(function (req, res) {
+        repository.getRuleSetNamesAsync()
+            .then((results) => {
+                var haleoas = [];
+                for (var i = 0; i < results.length; i++) {
+                    var links = [];
+                    links.push({ href: "/Prod/rule/" + results[i], rel: "rule", type: "GET"});
+
+                    haleoas.push({
+                        ruleName: results[i],
+                        _links: links
+                    });
+                }
+
+                res.send(JSON.stringify(haleoas));
+            });
+    })
     .post(function (req, res) {
         repository.saveAsync(req.body)
             .then((result) => {
                 res.setHeader("Content-Type", "text/plain");
                 res.send("OK");
+            });
+    });
+
+app.route('/rule/:ruleName')
+    .get(function (req, res) {
+        repository.getRuleAsync(req.params.ruleName)
+            .then((result) => {
+                res.send(JSON.stringify(result));
             });
     });
 

@@ -11,7 +11,6 @@ module.exports = {
     },
     getRuleAsync: async function(ruleSetName) {
         //check cached results
-        console.log(JSON.stringify(cachedRuleSets));
         if (cachedRuleSets.filter(r => r.RuleSet === ruleSetName).length > 0) {
             return cachedRuleSets.filter(r => r.RuleSet === ruleSetName)[0];
         }
@@ -47,10 +46,25 @@ module.exports = {
             ReturnConsumedCapacity: "TOTAL"
         };
 
-        console.log(params);
         var db = new AWS.DynamoDB();
         var result = await db.putItem(params).promise();
-        console.log(result);
+
         return result != null;
+    },
+    getRuleSetNamesAsync: async function() {
+        var params = {
+            ProjectionExpression: "RuleSet",
+            TableName: "RuleEntity"
+        };
+
+        var db = new AWS.DynamoDB();
+        var result = await db.scan(params).promise();
+        
+        var results = [];
+        for (var i = 0; i < result.Items.length; i++) {
+            results.push(result.Items[i].RuleSet.S);
+        }
+
+        return results;
     }
 }

@@ -8,7 +8,13 @@ var middleware = require("./middleware");
 var executor = require("./rule-executor");
 var service = require("./services/code-conversion-service");
 var viewEngine = require("./views/view-engine");
-var repository = require("./repository/rule-repository");
+let repository;
+if (process.env.NODE_ENV) {
+    repository = require("./repository/rule-repository");
+}
+else {
+    repository = require("./repository/debug-rule-repository");
+}
 
 
 var app = express();

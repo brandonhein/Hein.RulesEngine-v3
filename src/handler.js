@@ -56,17 +56,20 @@ app.route("/swagger")
         res.send(view);
     });
 
-app.route("/playground")
+app.route("/editor")
     .get(function (req, res) {
-
+        var view = viewEngine.display("new-editor");
+        res.setHeader("Content-Type", "text/html");
+        res.send(view);
     });
 
-app.route("/playground/:ruleName")
+app.route("/editor/:ruleName")
     .get(function (req, res) {
         repository.getRuleAsync(req.params.ruleName)
             .then((result) => {
-
-                res.send(JSON.stringify(result));
+                var view = viewEngine.display("editor", result);
+                res.setHeader("Content-Type", "text/html");
+                res.send(view);
             });
     });
 
@@ -97,7 +100,7 @@ app.route('/rule')
                 for (var i = 0; i < results.length; i++) {
                     var links = [];
                     links.push({ href: "/Prod/rule/" + results[i], rel: "api", type: "GET"});
-                    links.push({ href: "/Prod/playground/" + results[i], rel: "ui", type: "GET"});
+                    links.push({ href: "/Prod/editor/" + results[i], rel: "ui", type: "GET"});
 
                     responses.push({
                         ruleName: results[i],

@@ -1,0 +1,88 @@
+<style>
+    .textAreaColumn{
+    width:100%;    
+}
+.textAreaColumn div{
+    float:left;
+    width:50%;
+    padding:10px;
+    box-sizing: border-box;
+}
+
+.textAreaColumn div span{
+    display:block;
+    text-align:center;
+}
+
+.textAreaColumn div textarea{
+    box-sizing: border-box;
+    width:100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-height:300px;
+}
+</style>
+
+<form id="rule-update-form" autocomplete="off" action="/admin/message/update" method="post">
+    <div id="save-btn-div" style="float:right;">
+        <button id="save-btn" type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#confirmation">
+            Save
+        </button>
+
+        <div class="modal fade" id="confirmation" tabindex="-1" role="dialog" aria-labelledby="confirmationLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmationLabel">Describe your changes:</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea name="Description" rows="4" cols="50" style="width: 100%;" autocomplete="off"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="rule-editor">
+        <h1>Rule Editor</h1>
+        <div class="form-group">
+            {{{RULE-RULENAME}}}
+        </div>
+
+        <div class="form-group form-group">
+            <div class="textAreaColumn">
+                <div>
+                    <span>Admin Code</span>
+                    <textarea>{{{RULE-ADMINCODE}}}</textarea>
+                </div>
+                <div>
+                    <span>Engine Code</span>
+                    <textarea readonly>{{{RULE-ENGINECODE}}}</textarea>
+                </div>
+            </div>
+        </div>
+        <br />
+        <h3>Rule Edit History</h3>
+        <table class="display nowrap dataTable table table-striped no-footer">
+            <thead>
+                <tr>
+                    <th>Version</th>
+                    <th>Changed By</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                 </tr>
+            </thead>
+            <tbody>
+                {{{RULE-HISTORY}}}
+            </tbody>
+        </table>
+    </div>
+
+    
+</form>

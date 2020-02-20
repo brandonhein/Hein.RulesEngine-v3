@@ -21,7 +21,7 @@ module.exports = {
 
         for (var i = 0;  i < items.length; i++) {
             body += "<tr>"
-            body += "<td><a href='/Prod/playground/" + items[i].name + "'><button class='btn btn-sm btn-primary'>View</button></a></td>";
+            body += "<td><a href='/Prod/editor/" + items[i].name + "'><button class='btn btn-sm btn-primary'>View</button></a></td>";
             body += "<td>" + items[i].name + "</td>";
             body += "<td>" + items[i].updatedBy + "</td>";
             body += "<td>" + items[i].updated + "</td>";

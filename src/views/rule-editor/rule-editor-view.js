@@ -26,7 +26,18 @@ module.exports = {
         body = body.replace("{{{RULE-RULENAME}}}", ruleNameSection);
         body = body.replace("{{{RULE-ADMINCODE}}}", model.AdminCode);
         body = body.replace("{{{RULE-ENGINECODE}}}", model.EngineCode);
-        body = body.replace("{{{RULE-HISTORY}}}", "");
+
+        var changeHistory = "";
+        //for (var i = 0;  i < model.changeHistory; i++) {
+            changeHistory += "<tr>"
+            changeHistory += "<td>" + "v" + 1 + "</td>";
+            changeHistory += "<td>" + "bhein" + "</td>";
+            changeHistory += "<td>" + new Date(Date.now()).toISOString() + "</td>";
+            changeHistory += "<td>" + "init" + "</td>";
+            changeHistory += "</tr>";
+        //}
+
+        body = body.replace("{{{RULE-HISTORY}}}", changeHistory);
 
         return require("../layout-binder").bind(body);
     }

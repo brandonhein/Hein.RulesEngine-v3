@@ -6,7 +6,7 @@ module.exports = {
         var body = fs.readFileSync(__dirname + "/rule-editor-template.html", "utf-8");
 
         var newRuleNameSection = "<div class='form-group form-group-lg'>";
-        newRuleNameSection += "<label for='nameTextBox'>Rule Name:</label>";
+        newRuleNameSection += "<label for='nameTextBox'>Rule Name (lower_snake_case_preferred):</label>";
         newRuleNameSection += "<input id='nameTextBox' name='RuleSet' class='form-control form-control-lg' type='text' autocomplete='off'/>";
         newRuleNameSection += "</div>";
 

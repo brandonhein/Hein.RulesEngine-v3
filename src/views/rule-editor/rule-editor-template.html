@@ -1,6 +1,7 @@
 <style>
-    .textAreaColumn{
-    width:100%;    
+.textAreaColumn{
+    width: 100%;
+    height: 400px;
 }
 .textAreaColumn div{
     float:left;
@@ -23,13 +24,13 @@
 }
 </style>
 
-<form id="rule-update-form" autocomplete="off" action="/admin/message/update" method="post">
+<form id="rule-update-form" name="ruleUpdateForm" autocomplete="off" action="/admin/message/update" method="post">
     <div id="save-btn-div" style="float:right;">
         <button id="save-btn" type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#confirmation">
             Save
         </button>
 
-        <div class="modal fade" id="confirmation" tabindex="-1" role="dialog" aria-labelledby="confirmationLabel" aria-hidden="true">
+        <div class="modal fade" id="confirmation" tabindex="-2" role="dialog" aria-labelledby="confirmationLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -48,6 +49,25 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="addField" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+              <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="fieldNameLabel">Field Name:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input id="add_field" name="add_field" rows="1" cols="50" style="width: 75%;" autocomplete="off"></input>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addField();">Add</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
     <div id="rule-editor">
         <h1>Rule Editor</h1>
@@ -59,7 +79,18 @@
             <div class="textAreaColumn">
                 <div>
                     <span>Admin Code</span>
-                    <textarea>{{{RULE-ADMINCODE}}}</textarea>
+                    <textarea id="rule-admin-code" name="AdminCode">{{{RULE-ADMINCODE}}}</textarea>
+                    <button type="button" class="btn btn-danger" onclick="clearOut();">Clear</button>
+                    <button type="button" class="btn btn-success">Compile</button>
+                    <button type="button" class="btn btn-info">Test</button>
+                    <br>
+                    <button type="button" class="btn btn-primary" onclick="addIfBlock();">IF Block</button>
+                    <button type="button" class="btn btn-primary" onclick="addIfElseBlock();">IF/ELSE Block</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addField">Add Field</button>
+                    <br>
+                    <button type="button" class="btn btn-warning" onclick="addNow();">@runtime.now</button>
+                    <button type="button" class="btn btn-warning" onclick="addToday();">@runtime.today</button>
+                    <button type="button" class="btn btn-warning" onclick="addNull();">@null</button>
                 </div>
                 <div>
                     <span>Engine Code</span>
@@ -67,7 +98,9 @@
                 </div>
             </div>
         </div>
-        <br />
+    </div>
+    <br>
+    <div>
         <h3>Rule Edit History</h3>
         <table class="display nowrap dataTable table table-striped no-footer">
             <thead>
@@ -86,3 +119,63 @@
 
     
 </form>
+<script>
+var textareas = document.getElementsByTagName('textarea');
+
+if ( textareas ) {
+  for ( var i = 0; i < textareas.length; i++ ) {
+    textareas[i].addEventListener( 'keydown', function ( e ) {
+    if ( e.which != 9 ) return;
+
+    var start 			= this.selectionStart;
+    var end				  = this.selectionEnd;
+
+    this.value 			= this.value.substr( 0, start ) + "\t" + this.value.substr( end );
+    this.selectionStart = this.selectionEnd = start + 1;
+
+    e.preventDefault();
+    return false;
+    });
+  }
+}
+</script>
+<script>
+    function clearOut() {
+        document.ruleUpdateForm.AdminCode.value = "";
+    }
+
+    function addIfBlock() {
+        var block = "IF {condition}\n\t{block if true}\nENDIF\n";
+        document.ruleUpdateForm.AdminCode.value += block;
+    }
+
+    function addIfElseBlock() {
+        var block = "IF {condition}\n\t{block if true}\nELSE\n\t{block for else}\nENDIF\n";
+        document.ruleUpdateForm.AdminCode.value += block;
+    }
+
+    function addElseIf() {
+        var block = "ELSEIF {condition}\n\t{bock if true}\n";
+        document.ruleUpdateForm.AdminCode.value += block;
+    }
+
+    function addField() {
+        var value = document.getElementById("add_field").value;
+
+        var field = "[" + value + "] ";
+        document.ruleUpdateForm.AdminCode.value += field;
+        document.getElementById("add_field").value = "";
+    }
+
+    function addNow() {
+        document.ruleUpdateForm.AdminCode.value += "@now";
+    }
+
+    function addToday() {
+        document.ruleUpdateForm.AdminCode.value += "@today";
+    }
+
+    function addNull() {
+        document.ruleUpdateForm.AdminCode.value += "@null";
+    }
+</script>

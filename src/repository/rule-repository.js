@@ -39,9 +39,9 @@ module.exports = {
         var params = {
             TableName: 'RuleEntity',
             Item: {
-                'RuleSet': {S: ruleEntity.RuleSet},
-                'AdminCode': {S: ruleEntity.AdminCode},
-                'EngineCode': {S: ruleEntity.EngineCode}
+                RuleSet: {S: ruleEntity.RuleSet},
+                AdminCode: {S: ruleEntity.AdminCode},
+                EngineCode: {S: ruleEntity.EngineCode}
             },
             ReturnConsumedCapacity: "TOTAL"
         };

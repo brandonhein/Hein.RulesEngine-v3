@@ -8,7 +8,7 @@ module.exports = {
             code: adminCode,
             requestedConversion: "vbnet2cs"
         };
-        var result = http.post("https://codeconverter.icsharpcode.net/api/converter/", body, null)
+        var result = http.post("https://dotnet-codeconverter.azurewebsites.net/api/Convert/", body, null)
             .then((result) => {
                 return result.body;
             })
